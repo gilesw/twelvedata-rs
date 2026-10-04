@@ -1,0 +1,22 @@
+# Source: https://api.twelvedata.com/doc/swagger/openapi.json
+[generator]
+spec_path = "specs/twelvedata.json"
+output_dir = "src/generated"
+effective_spec = "effective.json"
+module_name = "generated"
+
+[features]
+enable_async_client = true
+enable_sse_client = false
+
+[http_client]
+base_url = "https://api.twelvedata.com"
+timeout_seconds = 30
+max_response_body_bytes = 8388608
+
+[http_client.tracing]
+enabled = false
+
+[http_client.auth]
+type = "ApiKey"
+header_name = "Authorization"
