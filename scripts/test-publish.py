@@ -36,7 +36,7 @@ class PublishTests(unittest.TestCase):
         self.run_git("config", "commit.gpgsign", "false")
         self.run_git("config", "tag.gpgsign", "false")
         self.run_git("config", "core.hooksPath", "/dev/null")
-        self.run_git("init", "-q", "--bare", str(self.remote))
+        self.run_git("init", "-q", "--bare", "--initial-branch=main", str(self.remote))
         self.run_git("remote", "add", "origin", str(self.remote))
         (self.repo / "scripts").mkdir()
         shutil.copy2(SCRIPT, self.repo / "scripts/publish.sh")

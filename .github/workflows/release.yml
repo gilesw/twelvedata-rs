@@ -1,0 +1,36 @@
+# Runs only for a v* tag: lint, test, then the release dry run against that
+# tag. Uploading to crates.io stays a local step; see RELEASING.md.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  test:
+    uses: ./.github/workflows/test.yml
+
+  dry-run:
+    name: release dry run
+    needs: [lint, test]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v4
+        with:
+          experimental: true
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: release
+      - uses: actions/cache@v4
+        with:
+          path: target/tools
+          key: sdk-tool-${{ runner.os }}-${{ hashFiles('mise.toml') }}
+      - run: mise run release

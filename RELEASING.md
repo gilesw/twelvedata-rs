@@ -76,6 +76,11 @@ The underlying `scripts/publish.sh [vVERSION] [--publish]` remains available.
 Task working directories and argument forwarding follow
 [mise's task conventions](https://mise.jdx.dev/tasks/toml-tasks.html).
 
+Pushing the tag also runs the lint and test workflows followed by the same
+dry run in GitHub Actions (`.github/workflows/release.yml`). That run has no
+registry token and never uploads; it only confirms the tagged commit passes
+every gate before `release:publish` is run locally.
+
 The default command performs a dry run. The script requires a clean checkout,
 checks that the tag points to HEAD, checks the tag against the manifest version,
 and verifies the identical tag exists on `origin`. It runs `mise run check`

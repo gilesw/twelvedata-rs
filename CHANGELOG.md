@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Require Rust 1.98.1 and add GitHub Actions lint, test and release dry-run workflows.
+
 ## 0.1.1
 
 - Keep five keywords so crates.io accepts the manifest. The v0.1.0 tag was

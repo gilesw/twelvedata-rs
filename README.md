@@ -110,9 +110,9 @@ with every query parameter and typed per-operation errors.
 - `tests/fixtures/`: response bodies assembled by `scripts/fixtures.py` from
   the specification's per-property examples. The specification has no complete
   response examples. Error and boundary fixtures in the tests are synthetic.
-- `mise.toml`: Rust 1.85 and pinned generator install/generate/check tasks,
-  for reproducible builds. The generator builds using Rust 1.88 in its own
-  `target/tools` installation.
+- `mise.toml`: Rust 1.98.1, pinned linters and generator install/generate/check
+  tasks, for reproducible builds. The generator is installed into its own
+  `target/tools` prefix.
 
 No schema overlay is currently necessary. Add an overlay only when evidence
 shows a discrepancy; retain the original specification unchanged.
@@ -126,9 +126,9 @@ With `openapi-to-rust` 0.19.0 already installed, the equivalent checks are:
 
 ```sh
 openapi-to-rust generate --config openapi-to-rust.toml --check
-cargo +1.85 fmt --all -- --check
-cargo +1.85 clippy --all-targets --locked -- -D warnings
-cargo +1.85 test --locked
+cargo +1.98.1 fmt --all -- --check
+cargo +1.98.1 clippy --all-targets --locked -- -D warnings
+cargo +1.98.1 test --locked
 ```
 
 To update the upstream specification deliberately:
